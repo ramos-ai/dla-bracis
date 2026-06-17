@@ -6,10 +6,11 @@ node_modules/
 data-labelling-app-frontend/
 .env
 .cursor/
-docs/
+docs/article_back.tex
+docs/generate_system_arch_macro.py
+docs/system_arch_macro.pdf
 !docs/system_arch.png
 !docs/system_arch_macro.png
-!docs/system_arch_macro.pdf
 .ruff_cache/
 .pytest_cache/
 .agents/
