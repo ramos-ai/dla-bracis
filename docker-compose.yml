@@ -1,0 +1,254 @@
+# Resource limits tuned for shared clusters (e.g. 12 CPUs, ~14 GB RAM available).
+# Base stack: ~5 GB RAM, ~5.5 CPUs. Redis + Celery for cache and background tasks.
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: data-labelling-redis
+    restart: unless-stopped
+    networks:
+      - app-network
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mongodb:
+    image: mongo:7.0
+    container_name: data-labelling-mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_DATABASE: datalabellingapp
+    volumes:
+      - mongodb_data:/data/db
+      - mongodb_config:/data/configdb
+    networks:
+      - app-network
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+          cpus: '2.0'
+        reservations:
+          memory: 512M
+          cpus: '0.5'
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: data-labelling-app
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "15050:5000"
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1.5'
+        reservations:
+          memory: 384M
+          cpus: '0.25'
+    environment:
+      - MONGODB_HOST=mongodb
+      - MONGODB_PORT=27017
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/1
+      - S3_STORAGE_ENABLED=${S3_STORAGE_ENABLED:-false}
+      - S3_ENDPOINT_URL=${S3_ENDPOINT_URL:-http://minio:9000}
+      - S3_BUCKET=${S3_BUCKET:-medias}
+      - S3_ACCESS_KEY=${S3_ACCESS_KEY:-minioadmin}
+      - S3_SECRET_KEY=${S3_SECRET_KEY:-minioadmin}
+    depends_on:
+      redis:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+      minio:
+        condition: service_started
+    networks:
+      - app-network
+    volumes:
+      - ./config:/app/config
+    command: sh -c "python scripts/init_db.py || true && gunicorn --workers $${GUNICORN_WORKERS:-5} --threads $${GUNICORN_THREADS:-3} --worker-class gthread --timeout 600 --keep-alive 5 --bind 0.0.0.0:5000 --access-logfile - --error-logfile - --capture-output app:app"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/health/live"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  frontend:
+    build:
+      context: ./data-labelling-app-frontend
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=/api
+    container_name: data-labelling-frontend
+    restart: unless-stopped
+    ports:
+      - "18080:80"
+    deploy:
+      resources:
+        limits:
+          memory: 192M
+          cpus: '0.5'
+        reservations:
+          memory: 64M
+    depends_on:
+      app:
+        condition: service_healthy
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  celery-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: data-labelling-celery
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - MONGODB_HOST=mongodb
+      - MONGODB_PORT=27017
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/1
+      - S3_STORAGE_ENABLED=${S3_STORAGE_ENABLED:-false}
+      - S3_ENDPOINT_URL=${S3_ENDPOINT_URL:-http://minio:9000}
+      - S3_BUCKET=${S3_BUCKET:-medias}
+      - S3_ACCESS_KEY=${S3_ACCESS_KEY:-minioadmin}
+      - S3_SECRET_KEY=${S3_SECRET_KEY:-minioadmin}
+    depends_on:
+      redis:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+    networks:
+      - app-network
+    volumes:
+      - ./config:/app/config
+    command: sh -c "export PYTHONPATH=/app/src && celery -A infrastructure.celery.celery_app worker --loglevel=info --concurrency=2"
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+
+  prometheus:
+    image: prom/prometheus:v2.47.0
+    container_name: data-labelling-prometheus
+    restart: unless-stopped
+    profiles:
+      - observability
+    ports:
+      - "19090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.retention.time=15d
+      - --web.enable-lifecycle
+    networks:
+      - app-network
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'
+
+  grafana:
+    image: grafana/grafana:10.2.0
+    container_name: data-labelling-grafana
+    restart: unless-stopped
+    profiles:
+      - observability
+    ports:
+      - "13000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD:-admin}
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_SERVER_ROOT_URL=%(protocol)s://%(domain)s:%(http_port)s/
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml:ro
+      - ./monitoring/grafana/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml:ro
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards/json:ro
+    depends_on:
+      - prometheus
+    networks:
+      - app-network
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'
+
+  mongodb-exporter:
+    image: percona/mongodb_exporter:0.40.0
+    container_name: data-labelling-mongodb-exporter
+    restart: unless-stopped
+    profiles:
+      - observability
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - app-network
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+          cpus: '0.25'
+
+  minio:
+    image: minio/minio:RELEASE.2024-01-16T16-07-38Z
+    container_name: data-labelling-minio
+    restart: unless-stopped
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin}
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
+    networks:
+      - app-network
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+
+volumes:
+  mongodb_data:
+  mongodb_config:
+  grafana_data:
+  minio_data:
+
+networks:
+  app-network:
+    driver: bridge
+
