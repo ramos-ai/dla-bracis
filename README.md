@@ -21,6 +21,18 @@ Validated submissions can be exported as training-ready ZIP archives. The geomet
 
 ---
 
+## Monorepo layout
+
+| Path | Role |
+|------|------|
+| [`src/`](src/), [`app.py`](app.py) | Flask API, evaluation domain, Celery workers |
+| [`frontend/`](frontend/) | React web client (annotation UI, dashboard, export) — see [`frontend/README.md`](frontend/README.md) |
+| [`docker-compose.yml`](docker-compose.yml) | Full stack: API, frontend, MongoDB, Redis, optional MinIO / observability |
+
+Public repository: [github.com/ramos-ai/dla-bracis](https://github.com/ramos-ai/dla-bracis).
+
+---
+
 ## System architecture
 
 ### Workflow
@@ -35,6 +47,7 @@ Validated submissions can be exported as training-ready ZIP archives. The geomet
 
 | Layer | Technology |
 |-------|------------|
+| Web client | React, Vite, Nginx ([`frontend/`](frontend/)) |
 | API | Flask, Gunicorn, JWT |
 | Persistence | MongoDB, GridFS or S3/MinIO |
 | Tasks | Redis, Celery |
@@ -91,6 +104,12 @@ docker compose up -d
 ```bash
 pip install -r requirements.txt
 python app.py
+```
+
+**Local frontend** (requires running API on port 5000):
+
+```bash
+cd frontend && npm ci && npm run dev
 ```
 
 **Observability:** `docker compose --profile observability up -d` (Prometheus `:19090`, Grafana `:13000`).

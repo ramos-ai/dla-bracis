@@ -92,7 +92,7 @@ services:
 
   frontend:
     build:
-      context: ./data-labelling-app-frontend
+      context: ./frontend
       dockerfile: Dockerfile
       args:
         - VITE_API_URL=/api

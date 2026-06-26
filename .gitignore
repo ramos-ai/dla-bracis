@@ -3,7 +3,8 @@ __pycache__
 *.pyc
 node_modules/
 .pytest_cache
-data-labelling-app-frontend/
+frontend/node_modules/
+frontend/dist/
 .env
 .cursor/
 docs/article_back.tex
