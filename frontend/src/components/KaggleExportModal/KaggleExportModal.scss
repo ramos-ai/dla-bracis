@@ -1,0 +1,207 @@
+@use '../../styles/base/variables' as *;
+
+.kaggle-export-modal {
+  padding: $spacing-sm 0;
+
+  &__instructions {
+    margin-bottom: $spacing-lg;
+    padding: $spacing-md;
+    background-color: $info-light;
+    border-radius: $radius-md;
+    border: 1px solid $info;
+
+    h4 {
+      margin: 0 0 $spacing-sm 0;
+      font-size: $font-size-lg;
+      font-weight: $font-weight-semibold;
+      color: $primary;
+    }
+
+    p {
+      margin: 0 0 $spacing-md 0;
+      color: $gray-700;
+      line-height: $line-height-normal;
+    }
+  }
+
+  &__steps {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+  }
+
+  &__step {
+    display: flex;
+    align-items: flex-start;
+    gap: $spacing-sm;
+    font-size: $font-size-sm;
+    color: $gray-700;
+
+    a {
+      color: $secondary;
+      text-decoration: underline;
+
+      &:hover {
+        color: $secondary-dark;
+      }
+    }
+
+    code {
+      background-color: $gray-100;
+      padding: 2px 6px;
+      border-radius: $radius-sm;
+      font-family: monospace;
+      font-size: $font-size-xs;
+    }
+  }
+
+  &__step-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    background-color: $primary;
+    color: $white;
+    border-radius: $radius-full;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+  }
+
+  &__dataset-info {
+    padding: $spacing-sm $spacing-md;
+    background-color: $gray-50;
+    border-radius: $radius-md;
+    font-size: $font-size-sm;
+    color: $gray-700;
+    margin-bottom: $spacing-sm;
+
+    strong {
+      color: $gray-800;
+    }
+  }
+
+  &__privacy {
+    .checkbox {
+      margin-bottom: $spacing-xs;
+    }
+  }
+
+  &__privacy-hint {
+    margin: 0;
+    font-size: $font-size-xs;
+    color: $gray-500;
+    padding-left: 28px;
+  }
+
+  &__error {
+    padding: $spacing-sm $spacing-md;
+    background-color: $error-light;
+    border: 1px solid $error;
+    border-radius: $radius-md;
+    color: $error;
+    font-size: $font-size-sm;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: $spacing-sm;
+    margin-top: $spacing-md;
+    padding-top: $spacing-md;
+    border-top: 1px solid $gray-200;
+  }
+
+  &__exporting {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-2xl $spacing-md;
+    text-align: center;
+  }
+
+  &__exporting-hint {
+    margin-top: $spacing-md;
+    color: $gray-500;
+    font-size: $font-size-sm;
+  }
+
+  &__success,
+  &__error-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: $spacing-lg $spacing-md;
+
+    h4 {
+      margin: $spacing-md 0 $spacing-sm 0;
+      font-size: $font-size-xl;
+      font-weight: $font-weight-semibold;
+      color: $gray-800;
+    }
+
+    p {
+      margin: 0 0 $spacing-md 0;
+      color: $gray-600;
+    }
+  }
+
+  &__success-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    background-color: $success-light;
+    border-radius: $radius-full;
+    color: $success;
+  }
+
+  &__error-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    background-color: $error-light;
+    border-radius: $radius-full;
+    color: $error;
+  }
+
+  &__error-message {
+    color: $error !important;
+  }
+
+  &__error-code {
+    font-size: $font-size-xs;
+    color: $gray-500 !important;
+    font-family: monospace;
+  }
+
+  &__kaggle-link {
+    display: inline-flex;
+    align-items: center;
+    padding: $spacing-sm $spacing-md;
+    background-color: $primary;
+    color: $white;
+    border-radius: $radius-md;
+    text-decoration: none;
+    font-weight: $font-weight-medium;
+    transition: background-color $transition-fast;
+
+    &:hover {
+      background-color: $primary-dark;
+      color: $white;
+    }
+  }
+}

@@ -1,0 +1,51 @@
+@use '../base/variables' as *;
+
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  gap: 0.55rem;
+
+  &__input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+
+    &:checked + .checkbox__custom::after {
+      transform: scale(1);
+    }
+  }
+
+  &__custom {
+    width: 18px;
+    height: 18px;
+    border: 2px solid $primary-light;
+    border-radius: $radius-sm;
+    display: inline-block;
+    position: relative;
+    transition: border-color $transition-base, background-color $transition-base;
+
+    &::after {
+      content: "✓";
+      position: absolute;
+      inset: -4px 4px 4px 2px;
+      color: white;
+    }
+  }
+
+  &__label {
+    font-size: 0.95rem;
+    color: $gray-600;
+  }
+
+  &:hover &__custom,
+  &__input:focus-visible + &__custom {
+    border-color: $primary;
+  }
+
+  &__input:checked + &__custom {
+    border-color: transparent;
+    background: $primary;
+  }
+}

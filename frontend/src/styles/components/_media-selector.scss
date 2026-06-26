@@ -1,0 +1,327 @@
+@use '../base/variables' as *;
+
+.media-selector {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+
+  // Step indicator / progress bar
+  &__progress {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    padding: $spacing-md $spacing-lg;
+    background: $white;
+    border-radius: $radius-lg;
+    border: 1px solid $gray-200;
+
+    &-step {
+      display: flex;
+      align-items: center;
+      gap: $spacing-sm;
+      font-size: $font-size-sm;
+      color: $gray-500;
+      
+      &--active {
+        color: $primary;
+        font-weight: $font-weight-semibold;
+      }
+      
+      &--completed {
+        color: $success;
+      }
+    }
+
+    &-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: $radius-full;
+      font-size: $font-size-sm;
+      font-weight: $font-weight-semibold;
+      background: $gray-100;
+      color: $gray-500;
+      
+      &--active {
+        background: $primary;
+        color: $white;
+      }
+      
+      &--completed {
+        background: $success;
+        color: $white;
+      }
+    }
+
+    &-line {
+      flex: 1;
+      height: 2px;
+      background: $gray-200;
+      
+      &--completed {
+        background: $success;
+      }
+    }
+  }
+
+  // Section containers
+  &__section {
+    background: $white;
+    border-radius: $radius-xl;
+    border: 1px solid $gray-200;
+    overflow: hidden;
+
+    &--supervised {
+      border-left: 4px solid $info;
+    }
+
+    &--free {
+      border-left: 4px solid $secondary;
+    }
+  }
+
+  // Header area
+  &__header {
+    padding: $spacing-lg;
+    border-bottom: 1px solid $gray-100;
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $gray-800;
+    margin: 0 0 $spacing-sm 0;
+  }
+
+  &__subtitle {
+    font-size: $font-size-sm;
+    color: $gray-600;
+    margin: 0;
+  }
+
+  // Info box (explanation)
+  &__info-box {
+    margin-top: $spacing-md;
+    padding: $spacing-md;
+    background: $info-light;
+    border-radius: $radius-md;
+    border-left: 3px solid $info;
+
+    &-title {
+      font-size: $font-size-sm;
+      font-weight: $font-weight-semibold;
+      color: $info;
+      margin: 0 0 $spacing-xs 0;
+    }
+
+    &-text {
+      font-size: $font-size-sm;
+      color: $gray-700;
+      margin: 0;
+      line-height: $line-height-relaxed;
+    }
+  }
+
+  // Selection counter badge
+  &__counter {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-xs;
+    margin-top: $spacing-md;
+    padding: $spacing-xs $spacing-sm;
+    background: $gray-50;
+    border-radius: $radius-md;
+    font-size: $font-size-sm;
+    color: $gray-600;
+
+    &--has-selection {
+      background: $success-light;
+      color: $success;
+    }
+
+    &-icon {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  // Toolbar (pagination + actions)
+  &__toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+    padding: $spacing-md $spacing-lg;
+    background: $gray-50;
+    border-bottom: 1px solid $gray-100;
+  }
+
+  &__pagination {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+
+    &-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      border: 1px solid $gray-300;
+      border-radius: $radius-md;
+      background: $white;
+      color: $gray-600;
+      cursor: pointer;
+      transition: all $transition-fast;
+
+      &:hover:not(:disabled) {
+        background: $gray-50;
+        border-color: $gray-400;
+        color: $gray-800;
+      }
+
+      &:disabled {
+        background: $gray-100;
+        color: $gray-400;
+        cursor: not-allowed;
+      }
+    }
+
+    &-info {
+      font-size: $font-size-sm;
+      color: $gray-600;
+      min-width: 80px;
+      text-align: center;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+
+    &-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: $spacing-xs;
+      padding: $spacing-xs $spacing-sm;
+      border: 1px solid $gray-300;
+      border-radius: $radius-md;
+      background: $white;
+      font-size: $font-size-xs;
+      color: $gray-600;
+      cursor: pointer;
+      transition: all $transition-fast;
+
+      &:hover {
+        background: $gray-50;
+        border-color: $gray-400;
+        color: $gray-800;
+      }
+    }
+  }
+
+  // Content grid
+  &__content {
+    padding: $spacing-lg;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: $spacing-md;
+
+    @media (max-width: $breakpoint-xl) {
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    @media (max-width: $breakpoint-lg) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media (max-width: $breakpoint-md) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (max-width: $breakpoint-sm) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  &__media-item {
+    position: relative;
+  }
+
+  // Empty state
+  &__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-2xl;
+    text-align: center;
+    color: $gray-500;
+
+    &-icon {
+      margin-bottom: $spacing-md;
+      color: $gray-400;
+    }
+
+    &-title {
+      font-size: $font-size-base;
+      font-weight: $font-weight-medium;
+      color: $gray-600;
+      margin: 0 0 $spacing-xs 0;
+    }
+
+    &-text {
+      font-size: $font-size-sm;
+      color: $gray-500;
+      margin: 0;
+    }
+  }
+
+  // Loading state
+  &__loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-2xl;
+    color: $gray-500;
+    font-size: $font-size-sm;
+  }
+
+  // Footer actions
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+    padding: $spacing-lg;
+    background: $gray-50;
+    border-top: 1px solid $gray-100;
+  }
+
+  &__summary {
+    font-size: $font-size-sm;
+    color: $gray-600;
+
+    strong {
+      color: $gray-800;
+    }
+  }
+
+  &__footer-actions {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+  }
+}

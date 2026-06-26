@@ -1,0 +1,73 @@
+@use '../base/variables' as *;
+
+.markdown-viewer {
+  font-size: $font-size-base;
+  line-height: 1.6;
+  color: $gray-700;
+
+  h1, h2, h3, h4, h5, h6 {
+    margin-top: 1.25em;
+    margin-bottom: 0.5em;
+    font-weight: $font-weight-semibold;
+    color: $gray-800;
+  }
+  h1 { font-size: 1.5em; }
+  h2 { font-size: 1.3em; }
+  h3 { font-size: 1.15em; }
+
+  p {
+    margin: 0.75em 0;
+  }
+
+  ul, ol {
+    margin: 0.75em 0;
+    padding-left: 1.5em;
+  }
+
+  code {
+    background: $gray-100;
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-size: 0.9em;
+  }
+
+  pre {
+    background: $gray-100;
+    padding: 1rem;
+    border-radius: $radius-md;
+    overflow-x: auto;
+    margin: 1em 0;
+    code {
+      background: none;
+      padding: 0;
+    }
+  }
+
+  blockquote {
+    border-left: 4px solid $primary;
+    margin: 1em 0;
+    padding-left: 1em;
+    color: $gray-600;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: $radius-md;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1em 0;
+  }
+  th, td {
+    border: 1px solid $gray-200;
+    padding: 0.5em 0.75em;
+    text-align: left;
+  }
+  th {
+    background: $gray-50;
+    font-weight: $font-weight-semibold;
+  }
+}

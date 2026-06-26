@@ -1,0 +1,111 @@
+@use '../base/variables' as *;
+
+.user-search-modal {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+  min-height: 400px;
+  max-height: 600px;
+
+  &__search {
+    margin-bottom: $spacing-md;
+  }
+
+  &__info {
+    padding: $spacing-sm $spacing-md;
+    background: $gray-50;
+    border: 1px solid $gray-200;
+    border-radius: $radius-md;
+    color: $gray-600;
+    font-size: $font-size-sm;
+    margin-bottom: $spacing-md;
+    text-align: center;
+  }
+
+  &__selected-count {
+    padding: $spacing-md $spacing-lg;
+    background: $info-light;
+    border: 1px solid $secondary;
+    border-radius: $radius-md;
+    color: $secondary-dark;
+    font-weight: $font-weight-medium;
+    text-align: center;
+  }
+
+  &__list {
+    flex: 1;
+    overflow-y: auto;
+    border: 1px solid $gray-200;
+    border-radius: $radius-md;
+    padding: $spacing-sm;
+    max-height: 400px;
+  }
+
+  &__no-results {
+    padding: $spacing-xl;
+    text-align: center;
+    color: $gray-500;
+    font-style: italic;
+  }
+
+  &__item {
+    padding: $spacing-md;
+    border: 1px solid $gray-200;
+    border-radius: $radius-md;
+    margin-bottom: $spacing-sm;
+    cursor: pointer;
+    transition: background-color $transition-base, border-color $transition-base;
+    background: $white;
+
+    &:hover {
+      background: $gray-50;
+      border-color: $primary-light;
+    }
+
+    &--selected {
+      background: $info-light;
+      border-color: $primary;
+      border-width: 2px;
+    }
+  }
+
+  &__item-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: $spacing-md;
+  }
+
+  &__item-info {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+    flex: 1;
+
+    strong {
+      font-size: $font-size-base;
+      color: $gray-800;
+    }
+
+    span {
+      font-size: $font-size-sm;
+      color: $gray-600;
+    }
+  }
+
+  &__checkbox {
+    input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: $spacing-md;
+    justify-content: flex-end;
+    padding-top: $spacing-md;
+    border-top: 1px solid $gray-200;
+  }
+}

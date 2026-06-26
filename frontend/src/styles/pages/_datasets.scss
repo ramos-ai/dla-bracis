@@ -1,0 +1,153 @@
+@use '../base/variables' as *;
+
+.datasets {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2xl;
+  max-width: $container-max-width;
+  margin: 0 auto;
+
+  &__header {
+    display: flex;
+    flex-direction: row;
+    gap: $spacing-xl;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: $spacing-lg;
+  }
+
+  &__list {
+    display: flex;
+    gap: $spacing-xl;
+    flex-wrap: wrap;
+  }
+
+  &__card-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  &__card-container {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+    background: $white;
+    border-radius: $radius-xl;
+    padding: $spacing-lg;
+    box-shadow: $shadow-md;
+    border: 1px solid $gray-200;
+    transition: all $transition-base;
+
+    &:hover {
+      box-shadow: $shadow-lg;
+      transform: translateY(-2px);
+    }
+  }
+
+  &__card-actions {
+    display: flex;
+    gap: $spacing-sm;
+    justify-content: flex-end;
+    margin-top: $spacing-sm;
+    padding-top: $spacing-md;
+    border-top: 1px solid $gray-200;
+  }
+
+  &__delete-modal {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+
+    p {
+      margin: 0;
+      color: $gray-700;
+      line-height: $line-height-relaxed;
+    }
+  }
+
+  &__delete-warning {
+    padding: $spacing-lg;
+    background: $warning-light;
+    border: 2px solid $warning;
+    border-radius: $radius-lg;
+    color: darken($warning, 30%);
+    box-shadow: $shadow-sm;
+
+    p {
+      margin: 0;
+      font-weight: $font-weight-medium;
+    }
+  }
+
+  &__delete-actions {
+    display: flex;
+    gap: $spacing-lg;
+    justify-content: flex-end;
+    margin-top: $spacing-lg;
+  }
+
+  &__edit-labels-modal {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xl;
+  }
+
+  &__edit-labels-actions {
+    display: flex;
+    gap: $spacing-lg;
+    justify-content: flex-end;
+  }
+}
+
+.new-dataset {
+  &__content {
+    display: flex;
+    flex-direction: column;
+    max-width: $container-max-width;
+    margin: 0 auto;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: $spacing-2xl;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xl;
+    background: $white;
+    padding: $spacing-2xl;
+    border-radius: $radius-xl;
+    box-shadow: $shadow-md;
+    border: 1px solid $gray-200;
+  }
+
+  &__selectables {
+    display: flex;
+    gap: $spacing-xl;
+    flex-wrap: wrap;
+    align-items: flex-start;
+
+    > * {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .select-field {
+      margin-bottom: 0;
+    }
+  }
+
+  &__buttons {
+    margin-top: $spacing-2xl;
+    display: flex;
+    gap: $spacing-lg;
+    justify-content: flex-end;
+  }
+}

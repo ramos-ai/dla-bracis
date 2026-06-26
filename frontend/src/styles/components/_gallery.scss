@@ -1,0 +1,71 @@
+@use '../base/variables' as *;
+
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  min-height: 70vh;
+
+  &__header {
+    gap: $spacing-md;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+  }
+
+  &__actions {
+    gap: $spacing-md;
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__items {
+    gap: $spacing-md;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex: 1 1 0;
+    min-height: 0;
+    max-height: 60vh;
+    overflow-y: auto;
+    align-content: flex-start;
+  }
+}
+
+// Entrada suave ao carregar itens (fade + scale leve)
+.gallery__items > * {
+  animation: gallery-item-in 200ms ease-out forwards;
+}
+
+@keyframes gallery-item-in {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// Na galeria, hover só na imagem (não no card)
+.gallery .thumbnail:hover {
+  box-shadow: $shadow-sm;
+  border-color: $gray-200;
+}
+
+.gallery .thumbnail__image {
+  transition: transform $transition-base, box-shadow $transition-base;
+  display: block;
+
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: $shadow-md;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery__items > * {
+    animation: none;
+  }
+}

@@ -1,0 +1,516 @@
+@use '../base/variables' as *;
+
+// Full width: break out of app-main__content padding
+.initial-page {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  min-height: 100vh;
+  background: $primary;
+}
+
+// ---- Section 1: Hero (estilo login – fundo primary + partículas) ----
+.initial-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-3xl $spacing-xl;
+  overflow: hidden;
+  background: $primary;
+
+  &__particles {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  &__content {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    text-align: center;
+  }
+
+  &__title {
+    font-family: 'DM Serif Display', $font-family-heading;
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    font-weight: 400;
+    color: $white;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 0 0 $spacing-lg 0;
+    opacity: 0;
+    animation: initial-hero-title 0.8s ease-out 0.2s forwards;
+  }
+
+  &__subtitle {
+    font-size: $font-size-lg;
+    color: rgba(255, 255, 255, 0.88);
+    line-height: $line-height-relaxed;
+    margin: 0 0 $spacing-2xl 0;
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0;
+    animation: initial-hero-title 0.7s ease-out 0.5s forwards;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    animation: initial-hero-title 0.6s ease-out 0.75s forwards;
+  }
+
+  &__scroll-hint {
+    position: absolute;
+    bottom: $spacing-xl;
+    left: 50%;
+    margin-left: -20px; // centrar sem usar transform (deixar bounce no ícone)
+    width: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-xs;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: $font-size-xs;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0;
+    animation: initial-scroll-hint-in 0.6s ease-out 1.2s forwards;
+    pointer-events: none;
+    z-index: 2; // acima das partículas, ao lado do conteúdo
+  }
+
+  &__scroll-hint-icon {
+    animation: initial-scroll-bounce 2s ease-in-out infinite;
+  }
+
+  &__btn {
+    min-width: 160px;
+    min-height: 48px;
+    padding: $spacing-md $spacing-xl;
+    font-size: $font-size-base;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: $radius-lg;
+    transition: transform $transition-base, box-shadow $transition-base;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    &:focus-visible {
+      outline: 2px solid $white;
+      outline-offset: 3px;
+    }
+  }
+
+  &__btn--primary {
+    background: $white;
+    color: $primary;
+    border: none;
+
+    &:hover {
+      background: $primary-dark;
+      color: $white;
+    }
+  }
+
+  &__btn--secondary {
+    background: transparent;
+    color: $white;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+  }
+}
+
+// ---- Section 1.5: Demos (vídeos de demonstração) ----
+.initial-demos {
+  width: 100%;
+  padding: $spacing-4xl $spacing-xl;
+  background: linear-gradient(180deg, $primary 0%, darken($primary, 5%) 50%, $gray-50 100%);
+
+  &__inner {
+    max-width: $container-max-width;
+    margin: 0 auto;
+  }
+
+  &__title {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-semibold;
+    color: $white;
+    text-align: center;
+    margin: 0 0 $spacing-2xl 0;
+    opacity: 0;
+    animation: initial-hero-title 0.6s ease-out 0.2s forwards;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-2xl;
+    max-width: 1100px;
+    margin: 0 auto;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      max-width: 560px;
+      gap: $spacing-xl;
+    }
+  }
+
+  &__card {
+    display: block;
+    text-decoration: none;
+    background: $white;
+    border-radius: $radius-xl;
+    overflow: hidden;
+    box-shadow: $shadow-md;
+    transition: transform $transition-slow, box-shadow $transition-slow;
+
+    &:nth-child(1) { animation: initial-block-in 0.5s ease-out 0.4s both; }
+    &:nth-child(2) { animation: initial-block-in 0.5s ease-out 0.55s both; }
+  }
+
+  &__video-wrapper {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: $gray-200;
+  }
+
+  &__iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  &__thumbnail {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    background: $gray-200;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform $transition-slow;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.3);
+      transition: background $transition-base;
+    }
+
+    &:hover {
+      img {
+        transform: scale(1.05);
+      }
+
+      &::after {
+        background: rgba(0, 0, 0, 0.15);
+      }
+
+      .initial-demos__play {
+        transform: translate(-50%, -50%) scale(1.1);
+        background: $white;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      }
+    }
+  }
+
+  &__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $primary;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transition: transform $transition-base, background $transition-base, box-shadow $transition-base;
+
+    svg {
+      margin-left: 4px;
+    }
+  }
+
+  &__label {
+    display: block;
+    padding: $spacing-md $spacing-lg;
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $primary;
+    text-align: center;
+    background: $white;
+  }
+}
+
+// ---- Section 2: Conteúdo único (como funciona + público + fluxo) ----
+.initial-content {
+  width: 100%;
+  padding: $spacing-4xl $spacing-xl;
+  background: linear-gradient(180deg, $gray-50 0%, $white 25%, $clinical-off-white 100%);
+  animation: initial-content-in 0.8s ease-out 0.2s both;
+
+  &__inner {
+    max-width: $container-max-width;
+    margin: 0 auto;
+  }
+
+  &__title {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-semibold;
+    color: $primary;
+    text-align: center;
+    margin: 0 0 $spacing-xl 0;
+
+    &--sub {
+      margin-top: $spacing-3xl;
+      margin-bottom: $spacing-lg;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: $spacing-xl;
+  }
+
+  &__block {
+    background: $white;
+    padding: $spacing-xl;
+    border-radius: $radius-xl;
+    box-shadow: $shadow-sm;
+    transition: transform $transition-slow, box-shadow $transition-slow;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: $shadow-lg;
+    }
+
+    &:nth-child(1) { animation: initial-block-in 0.5s ease-out 0.3s both; }
+    &:nth-child(2) { animation: initial-block-in 0.5s ease-out 0.45s both; }
+    &:nth-child(3) { animation: initial-block-in 0.5s ease-out 0.6s both; }
+  }
+
+  &__icon-wrap {
+    width: 56px;
+    height: 56px;
+    border-radius: $radius-lg;
+    background: $info-light;
+    color: $secondary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: $spacing-md;
+  }
+
+  &__block-title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $primary;
+    margin: 0 0 $spacing-sm 0;
+  }
+
+  &__block-desc {
+    font-size: $font-size-sm;
+    color: $gray-600;
+    line-height: $line-height-relaxed;
+    margin: 0;
+  }
+
+  &__audience {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: $spacing-xl;
+  }
+
+  &__card {
+    background: $white;
+    padding: $spacing-2xl;
+    border-radius: $radius-xl;
+    box-shadow: $shadow-sm;
+    transition: transform $transition-slow, box-shadow $transition-slow;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: $shadow-lg;
+    }
+
+    &:nth-child(1) { animation: initial-block-in 0.5s ease-out 0.5s both; }
+    &:nth-child(2) { animation: initial-block-in 0.5s ease-out 0.65s both; }
+  }
+
+  &__card-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: $radius-lg;
+    background: rgba($primary, 0.08);
+    color: $primary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: $spacing-md;
+  }
+
+  &__card-title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $primary;
+    margin: 0 0 $spacing-md 0;
+  }
+
+  &__list {
+    margin: 0;
+    padding-left: 1.25rem;
+    color: $gray-700;
+    font-size: $font-size-sm;
+    line-height: 1.7;
+
+    li {
+      margin-bottom: $spacing-xs;
+    }
+  }
+
+  &__flow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-sm;
+    margin-top: $spacing-3xl;
+    padding-top: $spacing-2xl;
+    animation: initial-block-in 0.5s ease-out 0.8s both;
+  }
+
+  &__flow-step {
+    padding: $spacing-sm $spacing-lg;
+    background: $white;
+    border-radius: $radius-lg;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $gray-800;
+    box-shadow: $shadow-sm;
+    transition: transform $transition-base, box-shadow $transition-base;
+
+    &:hover {
+      transform: scale(1.03);
+      box-shadow: $shadow-md;
+    }
+  }
+
+  &__flow-arrow {
+    color: $gray-400;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+  }
+}
+
+@keyframes initial-hero-title {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes initial-scroll-hint-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes initial-scroll-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+@keyframes initial-content-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes initial-block-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .initial-hero__title,
+  .initial-hero__subtitle,
+  .initial-hero__actions,
+  .initial-hero__scroll-hint,
+  .initial-demos__title,
+  .initial-demos__card,
+  .initial-content,
+  .initial-content__block,
+  .initial-content__card,
+  .initial-content__flow {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .initial-hero__scroll-hint-icon {
+    animation: none;
+  }
+
+  .initial-hero__btn:hover,
+  .initial-demos__card:hover,
+  .initial-content__block:hover,
+  .initial-content__card:hover,
+  .initial-content__flow-step:hover {
+    transform: none;
+  }
+
+  .initial-demos__card:hover .initial-demos__play {
+    transform: translate(-50%, -50%);
+  }
+}

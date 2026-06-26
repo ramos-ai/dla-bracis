@@ -1,0 +1,22 @@
+@use '../base/variables' as *;
+
+.markdown-editor-field {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+
+  &__label {
+    color: $gray-700;
+  }
+
+  &__editor {
+    width: 100%;
+    max-width: 100%;
+
+    /* Force @uiw/react-md-editor to use full width */
+    .w-md-editor {
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+  }
+}

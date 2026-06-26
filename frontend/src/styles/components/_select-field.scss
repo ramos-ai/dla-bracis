@@ -1,0 +1,61 @@
+@use '../base/variables' as *;
+
+.select-field {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-lg;
+
+  &__label {
+    font-weight: $font-weight-semibold;
+    color: $gray-800;
+    font-size: $font-size-sm;
+    letter-spacing: 0.02em;
+    margin-bottom: $spacing-xs;
+  }
+
+  &__select {
+    padding: $spacing-md $spacing-lg;
+    border: 1px solid $gray-300;
+    border-radius: $radius-md;
+    font-size: $font-size-base;
+    font-family: $font-family-primary;
+    background-color: $white;
+    color: $gray-800;
+    cursor: pointer;
+    transition: border-color $transition-base, box-shadow $transition-base;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%230B3C5D' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right $spacing-md center;
+    padding-right: $spacing-3xl;
+
+    &:focus {
+      border-color: $primary;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(11, 60, 93, 0.12);
+    }
+
+    &:hover:not(:focus) {
+      border-color: $gray-400;
+    }
+
+    &:disabled {
+      background-color: $gray-100;
+      color: $gray-500;
+      cursor: not-allowed;
+      border-color: $gray-200;
+    }
+  }
+
+  &__error {
+    color: $error;
+    font-size: $font-size-sm;
+    margin-top: $spacing-xs;
+  }
+
+  &--error .select-field__select {
+    border-color: $error;
+    background-color: $error-light;
+  }
+}

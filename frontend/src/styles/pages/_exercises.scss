@@ -1,0 +1,103 @@
+@use '../base/variables' as *;
+
+.exercises {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2xl;
+  max-width: $container-max-width;
+  margin: 0 auto;
+
+  &__group {
+    display: flex;
+    flex-direction: row;
+    gap: $spacing-lg;
+    flex-wrap: wrap;
+    margin-bottom: $spacing-xl;
+  }
+
+  &__results-content {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xl;
+  }
+
+  &__results {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-lg;
+    margin-bottom: $spacing-xl;
+
+    @media (max-width: $breakpoint-md) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2xl;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: row;
+    gap: $spacing-xl;
+    align-items: center;
+    margin-bottom: $spacing-xl;
+  }
+
+  &__list {
+    display: flex;
+    gap: $spacing-xl;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin-bottom: $spacing-lg;
+  }
+
+  &__resolution {
+    gap: $spacing-xl;
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: column;
+
+    &--loading {
+      background: $white;
+      min-height: 60vh;
+    }
+
+    &__loading {
+      flex: 1;
+      min-height: 40vh;
+      background: $white;
+    }
+
+    &__list {
+      gap: $spacing-lg;
+      flex-wrap: wrap;
+      display: flex;
+      flex-direction: row;
+    }
+
+    &__item {
+      flex-wrap: wrap;
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__no-class,
+    &__no-exercises {
+      padding: $spacing-2xl;
+      text-align: center;
+      background: $warning-light;
+      border: 2px solid $warning;
+      border-radius: $radius-xl;
+      color: darken($warning, 30%);
+      box-shadow: $shadow-md;
+
+      p {
+        margin: $spacing-sm 0;
+        font-weight: $font-weight-medium;
+      }
+    }
+  }
+}

@@ -1,0 +1,57 @@
+@use '../base/variables' as *;
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-lg;
+  flex: 1;
+
+  &__label {
+    font-weight: $font-weight-semibold;
+    color: $gray-800;
+    font-size: $font-size-sm;
+    letter-spacing: 0.02em;
+    margin-bottom: $spacing-xs;
+  }
+
+  &__input {
+    padding: $spacing-md $spacing-lg;
+    border: 1px solid $gray-300;
+    border-radius: $radius-md;
+    font-size: $font-size-base;
+    font-family: $font-family-primary;
+    color: $gray-800;
+    background: $white;
+    transition: border-color $transition-base, box-shadow $transition-base;
+    width: 100%;
+
+    &::placeholder {
+      color: $gray-400;
+    }
+
+    &:focus {
+      border-color: $primary;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(11, 60, 93, 0.12);
+      background: $white;
+    }
+
+    &:hover:not(:focus) {
+      border-color: $gray-400;
+    }
+
+    &:disabled {
+      background: $gray-100;
+      color: $gray-500;
+      cursor: not-allowed;
+      border-color: $gray-200;
+    }
+  }
+
+  &__error {
+    color: $error;
+    font-size: $font-size-sm;
+    margin-top: $spacing-xs;
+  }
+}

@@ -1,0 +1,65 @@
+@use '../base/variables' as *;
+
+.input-tagger {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+
+  &__label {
+    font-weight: $font-weight-semibold;
+    color: $gray-800;
+    font-size: $font-size-sm;
+    letter-spacing: 0.02em;
+    margin-bottom: $spacing-xs;
+  }
+
+  &__container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: $spacing-sm;
+    border: 1px solid $gray-300;
+    border-radius: $radius-md;
+    padding: $spacing-md $spacing-lg;
+    background-color: $white;
+    transition: border-color $transition-base, box-shadow $transition-base;
+    min-height: 48px;
+    box-sizing: border-box;
+
+    &:focus-within {
+      border-color: $primary;
+      box-shadow: 0 0 0 3px rgba(11, 60, 93, 0.12);
+    }
+  }
+
+  &__chip {
+    background-color: $primary;
+    color: $white;
+    padding: 0.3rem 0.7rem;
+    border-radius: $radius-full;
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    font-size: $font-size-sm;
+  }
+
+  &__remove {
+    background: none;
+    border: none;
+    color: $white;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: $font-size-base;
+    line-height: 1;
+  }
+
+  &__input {
+    flex: 1;
+    min-width: 120px;
+    border: none;
+    outline: none;
+    font-size: $font-size-base;
+    padding: 0;
+    font-family: $font-family-primary;
+  }
+}

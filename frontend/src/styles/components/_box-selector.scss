@@ -1,0 +1,74 @@
+@use '../base/variables' as *;
+
+.box-selector {
+  position: relative;
+  cursor: pointer;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  transition: all $transition-fast;
+  background: $white;
+  border: 2px solid $gray-200;
+
+  &:hover {
+    border-color: $gray-400;
+    box-shadow: $shadow-sm;
+    
+    .box-selector__checkbox {
+      opacity: 1;
+      background: $gray-100;
+    }
+  }
+
+  &--selected {
+    border-color: $success;
+    background: $success-light;
+    box-shadow: $shadow-md;
+
+    &:hover {
+      border-color: $success;
+    }
+
+    .box-selector__checkbox {
+      opacity: 1;
+      background: $success;
+      border-color: $success;
+      color: $white;
+    }
+  }
+
+  &__checkbox {
+    position: absolute;
+    top: $spacing-sm;
+    right: $spacing-sm;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: $radius-sm;
+    border: 2px solid $gray-300;
+    background: $white;
+    opacity: 0;
+    transition: all $transition-fast;
+    box-shadow: $shadow-sm;
+
+    svg {
+      display: block;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      aspect-ratio: 1 / 1;
+    }
+  }
+}

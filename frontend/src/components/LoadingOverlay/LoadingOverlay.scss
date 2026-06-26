@@ -1,0 +1,58 @@
+@use '../../styles/base/variables' as *;
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba($gray-50, 0.9);
+  z-index: 9999;
+}
+
+.loading-overlay__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  /* Garante centralização mesmo com scroll ou contenção */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loading-overlay__spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid $gray-200;
+  border-top-color: $primary;
+  border-radius: 50%;
+  animation: loading-overlay-spin 0.8s linear infinite;
+}
+
+.loading-overlay__message {
+  margin: 0;
+  font-size: 0.95rem;
+  color: $gray-600;
+}
+
+@keyframes loading-overlay-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-overlay__spinner {
+    animation: none;
+    border-top-color: $primary;
+    opacity: 0.8;
+  }
+}

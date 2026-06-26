@@ -1,0 +1,87 @@
+@use '../base/variables' as *;
+
+.settings {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2xl;
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+    padding: $spacing-xl;
+    background: $white;
+    border-radius: $radius-xl;
+    border: 1px solid rgba(11, 60, 93, 0.08);
+    box-shadow: $shadow-sm;
+  }
+
+  &__section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-md;
+
+    h3 {
+      margin: 0;
+      font-size: $font-size-xl;
+      font-weight: $font-weight-semibold;
+      color: $gray-800;
+    }
+  }
+
+  &__select-class {
+    max-width: 400px;
+  }
+
+  &__users-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+    margin-top: $spacing-md;
+  }
+
+  &__user-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $spacing-md;
+    background: $white;
+    border: 1px solid $gray-200;
+    border-radius: $radius-md;
+    transition: box-shadow $transition-base, border-color $transition-base;
+
+    &:hover {
+      box-shadow: $shadow-sm;
+      border-color: $primary-light;
+    }
+  }
+
+  &__user-info {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+    flex: 1;
+
+    strong {
+      font-size: $font-size-base;
+      color: $gray-800;
+      font-weight: $font-weight-semibold;
+    }
+
+    span {
+      font-size: $font-size-sm;
+      color: $gray-600;
+    }
+  }
+
+  &__empty-message {
+    padding: $spacing-xl;
+    text-align: center;
+    color: $gray-500;
+    font-style: italic;
+    background: $gray-50;
+    border: 1px dashed $gray-200;
+    border-radius: $radius-md;
+  }
+}

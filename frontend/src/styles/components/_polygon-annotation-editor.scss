@@ -1,0 +1,125 @@
+@use '../base/variables' as *;
+
+.polygon-annotation-editor {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  padding: $spacing-lg;
+  position: relative;
+  background: $gray-100;
+
+  &__toolbar-overlay {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: $white;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-md;
+    border: 1px solid rgba(11, 60, 93, 0.06);
+    margin-bottom: $spacing-md;
+    padding: $spacing-md;
+  }
+
+  &__toolbar {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    flex-wrap: wrap;
+  }
+
+  &__tool-group {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    padding: $spacing-xs;
+    background: $gray-50;
+    border-radius: $radius-md;
+  }
+
+  &__instructions-overlay {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: $spacing-md;
+    z-index: 50;
+    pointer-events: none;
+  }
+
+  &__instructions {
+    padding: $spacing-sm $spacing-md;
+    background: $primary;
+    color: $white;
+    border-radius: $radius-md;
+    font-size: $font-size-sm;
+    box-shadow: $shadow-md;
+    pointer-events: auto;
+    max-width: 400px;
+    text-align: center;
+    width: fit-content;
+  }
+
+  &__canvas-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: $spacing-lg;
+    background: $white;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-sm;
+    border: 1px solid $gray-200;
+    min-height: 400px;
+  }
+
+  &__polygon-actions {
+    position: absolute;
+    bottom: $spacing-md;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: $spacing-sm;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.98);
+    padding: $spacing-sm;
+    border-radius: $radius-md;
+    box-shadow: $shadow-md;
+    border: 1px solid $gray-200;
+  }
+
+  &__annotations-list {
+    padding: $spacing-lg;
+    background: $white;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-sm;
+    border: 1px solid rgba(11, 60, 93, 0.06);
+    max-height: 300px;
+    overflow-y: auto;
+    animation: polygon-panel-in 200ms ease-out;
+
+    h3 {
+      margin: 0 0 $spacing-md 0;
+      color: $primary;
+      font-size: $font-size-base;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    gap: $spacing-md;
+    justify-content: flex-end;
+    padding-top: $spacing-md;
+    border-top: 1px solid $gray-200;
+  }
+}
+
+@keyframes polygon-panel-in {
+  from {
+    opacity: 0;
+    transform: translateX(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

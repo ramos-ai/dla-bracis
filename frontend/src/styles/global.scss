@@ -1,0 +1,112 @@
+// Base
+@use './base/reset';
+@use './base/variables' as *;
+@use './base/animations';
+
+// Components
+@use './components/sidebar';
+@use './components/card';
+@use './components/input-field';
+@use './components/textarea-field';
+@use './components/select-field';
+@use './components/button';
+@use './components/input-tagger';
+@use './components/media-uploader';
+@use './components/thumbnail';
+@use './components/gallery';
+@use './components/modal';
+@use './components/alert-confirm-modal';
+@use './components/labeller';
+@use './components/media-viewer';
+@use './components/checkbox';
+@use './components/media-selector';
+@use './components/box-selector';
+@use './components/exercise-carousel';
+@use './components/progress-bar';
+@use './components/user-search-modal';
+@use './components/polygon-annotation-editor';
+@use './components/markdown-editor';
+@use './components/markdown-viewer';
+
+// Pages
+@use './pages/datasets';
+@use './pages/exercises';
+@use './pages/mediauploader';
+@use './pages/manage-exercises';
+@use './pages/settings';
+@use './pages/submission-details';
+@use './pages/dashboard';
+@use './pages/notifications';
+@use './pages/home';
+@use './pages/initial';
+@use './pages/auth';
+
+// Título de página (mesmo estilo do Dashboard de Exercícios) — usar em todas as páginas
+.page-title {
+  font-size: $font-size-4xl;
+  font-weight: $font-weight-bold;
+  color: $primary;
+  margin: $spacing-lg 0 $spacing-lg 0;
+  letter-spacing: -0.02em;
+}
+
+// Fallback de carregamento (Suspense): mínimo para não “piscar” nem deslocar layout
+.app-loading-fallback {
+  min-height: 30vh;
+  width: 100%;
+}
+
+// App Layout – header fixo alinhado à área de conteúdo (não em cima da sidebar)
+.app-main--with-sidebar .app-header {
+  left: var(--sidebar-width, 260px);
+  transition: left 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// Sem sidebar (login, register, initial): main ocupa toda a largura, sem espaço à esquerda
+.app-main--full-width {
+  margin-left: 0 !important;
+  width: 100%;
+  max-width: 100%;
+}
+
+.app-main {
+  background: $gray-50;
+
+  &__content {
+    padding: $spacing-xl;
+    max-width: $container-max-width;
+    margin: 0 auto;
+    width: 100%;
+    /* Altura mínima estável para evitar salto ao trocar página/loading */
+    min-height: 50vh;
+
+    .app-main:has(.app-header) & {
+      padding-top: calc(#{$spacing-xl} + #{$header-height} + #{$spacing-md});
+    }
+  }
+
+  &__content-inner {
+    min-height: 1px;
+  }
+
+  .page-fade {
+    contain: layout;
+  }
+
+  .page-fade-in {
+    animation: page-fade-in 0.12s ease-out;
+  }
+
+  &:not(:has(.app-header)) &__content {
+    padding: 0;
+  }
+}
+
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

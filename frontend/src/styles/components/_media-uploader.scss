@@ -1,0 +1,143 @@
+.media-uploader {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  &__label {
+    font-weight: 600;
+    font-size: 1.2rem;
+  }
+
+  &__dropzone {
+    border: 2px dashed #0B3C5D;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.2s;
+    background: rgba(11, 60, 93, 0.03);
+
+    &:hover {
+      background: rgba(11, 60, 93, 0.07);
+    }
+  }
+
+  &__preview {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  &__item {
+    width: 160px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    align-items: center;
+
+    img,
+    video {
+      max-width: 100%;
+      max-height: 100px;
+      border-radius: 6px;
+    }
+
+    p {
+      font-size: 0.85rem;
+      text-align: center;
+      word-break: break-word;
+    }
+
+    button {
+      background: none;
+      border: none;
+      color: #0B3C5D;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+  }
+
+  &__progress {
+    width: 100%;
+    height: 6px;
+    background: #e5e7eb;
+    border-radius: 4px;
+    overflow: hidden;
+
+    div {
+      height: 100%;
+      background: #0B3C5D;
+    }
+  }
+
+  &__error {
+    color: #dc2626;
+    font-size: 0.75rem;
+  }
+
+  &__actions {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    gap: 0.75rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__success-message {
+    padding: 0.75rem 1rem;
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    border-radius: 8px;
+    color: #155724;
+    font-weight: 600;
+    text-align: center;
+    animation: slideDown 0.3s ease-out;
+    width: 100%;
+  }
+
+  &__uploading-message {
+    padding: 0.75rem 1rem;
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 8px;
+    color: #856404;
+    font-weight: 600;
+    text-align: center;
+    width: 100%;
+  }
+
+  &__upload-all {
+    padding: 0.75rem 2rem;
+    background: #0B3C5D;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    min-width: 150px;
+
+    &:hover:not(:disabled) {
+      background: #082a42;
+    }
+
+    &:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

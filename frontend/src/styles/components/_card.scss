@@ -1,0 +1,463 @@
+@use '../base/variables' as *;
+
+@mixin card($color) {
+  background: $color;
+  color: $white;
+  padding: $spacing-xl;
+  border-radius: $radius-2xl;
+  box-shadow: $shadow-md;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  transition: transform $transition-base, box-shadow $transition-base;
+  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-lg;
+  }
+
+  &__title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    line-height: $line-height-tight;
+    margin-bottom: $spacing-xs;
+  }
+
+  &__description {
+    font-size: $font-size-base;
+    line-height: $line-height-relaxed;
+    opacity: 0.95;
+  }
+
+  &__footer {
+    font-size: $font-size-sm;
+    color: rgba(255, 255, 255, 0.9);
+    margin-top: auto;
+    padding-top: $spacing-md;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
+}
+
+.card {
+  background: $white;
+  border-radius: $radius-2xl;
+  box-shadow: $shadow-sm;
+  padding: $spacing-xl;
+  transition: transform $transition-base, box-shadow $transition-base;
+  border: 1px solid rgba(11, 60, 93, 0.08);
+
+  &:hover {
+    box-shadow: $shadow-md;
+    transform: translateY(-1px);
+  }
+
+  &__title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $primary;
+    margin-bottom: $spacing-md;
+    line-height: $line-height-tight;
+  }
+
+  &__description {
+    font-size: $font-size-base;
+    color: $gray-700;
+    line-height: $line-height-relaxed;
+    font-weight: $font-weight-normal;
+  }
+
+  &__footer {
+    margin-top: $spacing-lg;
+    padding-top: $spacing-md;
+    border-top: 1px solid $gray-200;
+  }
+}
+
+.card--purple { @include card($primary); }
+.card--amber { @include card($warning); }
+.card--green { @include card($secondary); }
+.card--blue { @include card($primary); }
+.card--orange { @include card($accent-orange); }
+.card--salmon { @include card(#C47B6E); }
+.card--platypus { @include card($success); }
+
+// Exercise card - modern blue gradient style
+.card--exercise {
+  background: linear-gradient(135deg, $primary 0%, $primary-light 100%);
+  color: $white;
+  padding: $spacing-xl;
+  border-radius: $radius-2xl;
+  box-shadow: $shadow-md;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  transition: all $transition-base;
+  cursor: pointer;
+  border: none;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    transform: translate(30%, -30%);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    transform: translate(-30%, 30%);
+  }
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(11, 60, 93, 0.25);
+  }
+
+  .card__title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    line-height: $line-height-tight;
+    margin-bottom: $spacing-xs;
+    position: relative;
+    z-index: 1;
+    color: $white;
+  }
+
+  .card__description {
+    font-size: $font-size-sm;
+    line-height: $line-height-normal;
+    position: relative;
+    z-index: 1;
+    color: $white;
+  }
+
+  .card__footer {
+    font-size: $font-size-xs;
+    margin-top: auto;
+    padding-top: $spacing-md;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    position: relative;
+    z-index: 1;
+    color: $white;
+  }
+}
+
+// Exercise card variant - secondary (teal) - for student panel
+.card--exercise-secondary {
+  background: linear-gradient(135deg, $secondary 0%, $secondary-light 100%);
+  color: $white;
+  padding: $spacing-xl;
+  border-radius: $radius-2xl;
+  box-shadow: $shadow-md;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  transition: all $transition-base;
+  cursor: pointer;
+  border: none;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    transform: translate(30%, -30%);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: -20px;
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+  }
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(31, 122, 140, 0.25);
+  }
+
+  .card__title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    line-height: $line-height-tight;
+    margin-bottom: $spacing-xs;
+    position: relative;
+    z-index: 1;
+    color: $white;
+  }
+
+  .card__description {
+    font-size: $font-size-sm;
+    line-height: $line-height-normal;
+    position: relative;
+    z-index: 1;
+    color: rgba(255, 255, 255, 0.95);
+  }
+
+  .card__footer {
+    font-size: $font-size-xs;
+    margin-top: auto;
+    padding-top: $spacing-md;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    position: relative;
+    z-index: 1;
+    color: rgba(255, 255, 255, 0.9);
+  }
+}
+
+// Exercise card variant - student (teal with subtle pattern)
+.card--exercise-student {
+  background: linear-gradient(145deg, $secondary 0%, darken($secondary, 8%) 100%);
+  color: $white;
+  padding: $spacing-xl;
+  border-radius: $radius-2xl;
+  box-shadow: $shadow-md;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  transition: all $transition-base;
+  cursor: pointer;
+  border: none;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    width: 120px;
+    height: 120px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 50%;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 20%;
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 50%;
+  }
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(31, 122, 140, 0.3);
+  }
+
+  .card__title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    line-height: $line-height-tight;
+    margin-bottom: $spacing-xs;
+    position: relative;
+    z-index: 1;
+    color: $white;
+  }
+
+  .card__description {
+    font-size: $font-size-sm;
+    line-height: $line-height-normal;
+    position: relative;
+    z-index: 1;
+    color: rgba(255, 255, 255, 0.95);
+  }
+
+  .card__footer {
+    font-size: $font-size-xs;
+    margin-top: auto;
+    padding-top: $spacing-md;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    position: relative;
+    z-index: 1;
+    color: rgba(255, 255, 255, 0.9);
+  }
+}
+
+.card--disabled {
+  background: $gray-200;
+  color: $gray-600;
+  padding: $spacing-xl;
+  border-radius: $radius-2xl;
+  box-shadow: $shadow-sm;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  opacity: 0.7;
+  cursor: not-allowed;
+  border: 1px solid $gray-300;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    transform: none;
+    box-shadow: $shadow-sm;
+  }
+
+  .card__title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    line-height: $line-height-tight;
+    margin-bottom: $spacing-xs;
+    position: relative;
+    z-index: 1;
+    color: $gray-600;
+  }
+
+  .card__description {
+    font-size: $font-size-sm;
+    line-height: $line-height-normal;
+    position: relative;
+    z-index: 1;
+    color: $gray-500;
+  }
+
+  .card__footer {
+    font-size: $font-size-xs;
+    margin-top: auto;
+    padding-top: $spacing-md;
+    border-top: 1px solid $gray-300;
+    position: relative;
+    z-index: 1;
+    color: $gray-500;
+  }
+}
+
+// Submission card - student results in teacher panel
+.card--submission {
+  background: $white;
+  padding: $spacing-lg;
+  border-radius: $radius-xl;
+  box-shadow: $shadow-sm;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  transition: all $transition-base;
+  border: 1px solid $gray-200;
+  border-left: 4px solid $gray-400;
+  position: relative;
+
+  &:hover {
+    box-shadow: $shadow-md;
+    transform: translateY(-2px);
+  }
+
+  // Status variants
+  &--completed {
+    border-left-color: $success;
+    
+    .card--submission__status-badge {
+      background: $success-light;
+      color: $success;
+    }
+  }
+
+  &--in-progress {
+    border-left-color: $warning;
+    
+    .card--submission__status-badge {
+      background: $warning-light;
+      color: $warning;
+    }
+  }
+
+  &--not-started {
+    border-left-color: $gray-400;
+    
+    .card--submission__status-badge {
+      background: $gray-100;
+      color: $gray-600;
+    }
+  }
+
+  .card__title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $gray-800;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+  }
+
+  .card__description {
+    font-size: $font-size-sm;
+    color: $gray-600;
+    line-height: $line-height-normal;
+    margin: 0;
+  }
+
+  .card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: $spacing-sm;
+    margin-top: $spacing-sm;
+    padding-top: $spacing-sm;
+    border-top: 1px solid $gray-100;
+  }
+
+  &__status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-xs;
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $radius-full;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+  }
+
+  &__score {
+    display: flex;
+    align-items: center;
+    gap: $spacing-xs;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    
+    &--high {
+      color: $success;
+    }
+    
+    &--medium {
+      color: $warning;
+    }
+    
+    &--low {
+      color: $error;
+    }
+  }
+
+  &__meta {
+    font-size: $font-size-xs;
+    color: $gray-500;
+  }
+}

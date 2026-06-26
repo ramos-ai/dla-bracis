@@ -1,0 +1,231 @@
+@use '../base/variables' as *;
+
+.exercise-carousel {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xl;
+  width: 100%;
+  max-width: 100%;
+
+  &__tabs {
+    display: flex;
+    gap: $spacing-sm;
+    border-bottom: 2px solid $gray-200;
+    margin-bottom: $spacing-lg;
+  }
+
+  &__tab {
+    padding: $spacing-md $spacing-lg;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    color: $gray-600;
+    transition: all $transition-base;
+    position: relative;
+    bottom: -2px;
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-sm;
+
+    &:hover:not(:disabled) {
+      color: $primary;
+      background: $gray-50;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    &--active {
+      color: $primary;
+      border-bottom-color: $primary;
+      font-weight: $font-weight-semibold;
+    }
+  }
+
+  &__tab-content {
+    min-height: 400px;
+  }
+
+  &__explanation-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  &__explanation-content {
+    font-size: $font-size-base;
+    line-height: 1.6;
+    color: $gray-700;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  &__finalized-message {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+    padding: $spacing-xl;
+    text-align: center;
+
+    p {
+      font-size: $font-size-lg;
+      color: $primary;
+      font-weight: $font-weight-semibold;
+    }
+  }
+
+  &__step-0,
+  &__step-1,
+  &__step-2,
+  &__step-3 {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+
+    > p:first-child {
+      font-size: $font-size-lg;
+      color: $primary;
+      font-weight: $font-weight-semibold;
+      margin-bottom: $spacing-sm;
+    }
+  }
+
+  &__step-4 {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+    padding: $spacing-xl;
+  }
+
+  &__labels {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: $spacing-lg;
+    margin: $spacing-lg 0;
+  }
+  
+  &__label-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: $spacing-sm;
+    
+    input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+    
+    label {
+      font-size: $font-size-base;
+      color: $gray-700;
+      cursor: pointer;
+      user-select: none;
+    }
+  }
+
+  // Standard image container for classification
+  &__image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 400px;
+    max-height: 500px;
+    background: $gray-50;
+    border-radius: $radius-lg;
+    overflow: hidden;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      max-height: 500px;
+      object-fit: contain;
+    }
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-sm;
+    display: block;
+  }
+
+  .media-viewer {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: $spacing-lg 0;
+
+    img {
+      max-width: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+  }
+}
+
+// Label Selector component (student exercise classification)
+.label-selector {
+  background: $gray-50;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin: $spacing-md 0;
+
+  &__title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $gray-700;
+    margin-bottom: $spacing-md;
+  }
+
+  &__options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.25rem;
+    align-items: center;
+  }
+
+  &__option {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    margin: 0;
+    padding: 0.25rem 0;
+    font-weight: 400;
+    font-size: $font-size-base;
+    color: $gray-700;
+    transition: font-weight 0.15s ease;
+
+    input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: $primary;
+    }
+
+    &--selected {
+      font-weight: 600;
+      color: $primary;
+    }
+
+    &:hover {
+      color: $primary;
+    }
+  }
+}
