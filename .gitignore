@@ -11,6 +11,8 @@ docs/generate_system_arch_macro.py
 docs/system_arch_macro.pdf
 !docs/system_arch.png
 !docs/system_arch_macro.png
+!docs/system_dashboard_screenshot.png
+!docs/segmentation_tool.png
 .ruff_cache/
 .pytest_cache/
 .agents/

@@ -17,7 +17,7 @@
 \author{Pedro da Rosa\inst{1} \and
 Augusto Reich\inst{1} \and
 Felipe Zeiser\inst{1} \and
-Gabriel Ramos\inst{1}
+Gabriel Ramos\thanks{gdoramos@unisinos.br}\inst{1}
 }
 \authorrunning{P. da Rosa et al.}
 \institute{Graduate Program in Applied Computing, Universidade Do Vale Do Rio dos Sinos
@@ -61,13 +61,13 @@ Labelbox~\cite{labelbox} follows a similar line but with greater emphasis on lar
 
 Tools such as LabelMe~\cite{russell2008labelme} and LabelImg~\cite{labelimg} are simpler and are often adopted in more specific settings. LabelMe is commonly associated with polygon- or region-based segmentation; LabelImg is straightforward and oriented to bounding boxes (\emph{bounding boxes}). Although easy to use, they offer less support for organizing \textit{datasets} and integrating multiple formats, which limits more complex applications.
 
-More recently, mature platforms such as CVAT and Labelbox have added AI-assisted pre-labeling, active-learning workflows, and human-in-the-loop review to reduce annotation effort at scale. Table~\ref{tab:ferramentas} summarizes both classic export and pedagogical features and this newer axis; DLA does not target model-assisted labeling, but rather pedagogical integration under supervisor-validated practice.
+More recently, mature platforms such as CVAT and Labelbox have added AI-assisted pre-labeling, active-learning workflows, and human-in-the-loop review to reduce annotation effort at scale. These techniques represent the current state of the art in data annotation pipelines: AI-assisted labeling uses machine learning models to generate initial annotations, while active learning prioritizes the most informative samples for human review, reducing overall labeling effort. Table~\ref{tab:ferramentas} summarizes both classic export and pedagogical features and this newer axis; DLA does not target model-assisted labeling, but rather pedagogical integration under supervisor-validated practice.
 
 \begin{table}[t]
   \centering
   \caption{Summary comparison among annotation tools. Check marks indicate support declared or typical in public documentation; $\sim$ indicates partial or plugin-based support; blank cells indicate absent or very limited support.}
   \label{tab:ferramentas}
-  \resizebox{\linewidth}{!}{%
+  % \resizebox{\linewidth}{!}{%
   \begin{tabular}{lccccc}
     \toprule
     \textbf{Feature} & \textbf{DLA} & \textbf{LabelMe} & \textbf{LabelImg} & \textbf{CVAT} & \textbf{Labelbox} \\
@@ -85,7 +85,7 @@ More recently, mature platforms such as CVAT and Labelbox have added AI-assisted
     Pedagogical monitoring & \checkmark &  &  &  &  \\
     Pedagogical grading & \checkmark &  &  &  &  \\
     \bottomrule
-  \end{tabular}}
+  \end{tabular}%}
 \end{table}
 
 Given this landscape, mature annotation options exist, each with advantages depending on context. Nevertheless, these solutions are predominantly oriented to creating \textit{datasets} or reducing labeling effort through AI assistance, without integrating data literacy, supervisor-validated pedagogical practice, and export in the same workflow, the gap DLA targets at the interface level.
@@ -104,12 +104,12 @@ The operational flow is as follows: an authenticated supervisor registers \texti
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.92\linewidth]{system_arch_macro.pdf}
+    \includegraphics[width=0.96\linewidth]{system_arch_macro.pdf}
     \caption{High-level architecture of the proposed annotation and evaluation platform.}
     \label{fig:arquitetura}
 \end{figure}
 
-In summary, Figure~\ref{fig:arquitetura} outlines the chain from client to service to data; the following subsections detail annotation, export, and grading criteria.
+In summary, Figure~\ref{fig:arquitetura}\footnote{For architectural detail beyond this macro view and access to the complete reference implementation, see the open-source DLA repository at \url{https://github.com/ramos-ai/dla-bracis}.} outlines the chain from client to service to data; the following subsections detail annotation, export, and grading criteria.
 
 \subsubsection{Annotation module}
 
@@ -117,13 +117,20 @@ In this subsection we detail how the system represents annotation tasks, which a
 
 The supervisor \textbf{creates exercises} linked to a \textit{dataset} and a task type; each annotator produces an \textbf{exercise submission}, updated over time, composed of per-image \textbf{response submissions}, whether as labels, boxes, or polygons. Each exercise generally combines two modalities. In \textbf{assisted practice}, the system compares responses to the supervisor reference and may update the supervised score \texttt{supervisedScore}; for this, the supervisor must have labeled in advance a subset of images that constitute the assisted exercise. In \textbf{free practice}, the annotator labels any image in the \textit{dataset} without that immediate grading in the same scoring flow. This distinction is \textbf{critical for export}: the pipeline in the next subsection must know which responses count as reliable training labels, typically those from assisted practice and/or finalized submissions, whereas free practice may be excluded or handled separately, for example, through an option to include unlabeled items or curation policies. Ignoring this separation would mix examples without reference or without geometric validation with corrected examples, reducing exported set quality and obscuring the pedagogical reading of the data.
 
-The task type follows the dataset field \texttt{task\_type}, with values \texttt{classification}, \texttt{detection}, or \texttt{segmentation}, and there is additional branching in the scoring service: if responses contain COCO-style annotations with \texttt{annotations} and a \texttt{bbox} bounding-box field, the detection flow is selected even when textual metadata is generic. References are drawn from per-media labels in classification, stored box annotations in detection, and persisted polygons with reference class labels in segmentation.
+The task type follows the dataset field \texttt{task\_type}, with values \texttt{classification}, \texttt{detection}, or \texttt{segmentation}, and there is additional branching in the scoring service: if responses contain COCO-style annotations with \texttt{annotations} and a \texttt{bbox} bounding-box field, the detection flow is selected even when textual metadata is generic. References are drawn from per-media labels in classification, stored box annotations in detection, and persisted polygons with reference class labels in segmentation. For segmentation, annotators delineate regions with polygon tools in the web client; Figure~\ref{fig:segmentation} illustrates this workflow on a medical image.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth,height=0.38\textheight,keepaspectratio]{segmentation_tool.png}
+    \caption{Demonstration of the DLA annotation interface for polygon segmentation on a medical image.}
+    \label{fig:segmentation}
+\end{figure}
 
 Each exercise stores configurable grading parameters: overlap thresholds $\tau$ (possibly distinct for boxes and polygons), a scoring mode based on \emph{F1} or \emph{recall}, an exercise weight applied to raw scores, and the set of images included in supervised-practice averaging; unanswered listed images count as zero in that average.
 
 The supervisor may also apply manual corrections to detection and segmentation submissions via a dedicated route, separate from the automatic grading module, enabling point fixes in specific cases.
 
-For dashboards, the system aggregates, per exercise, completion rate, mean percentage score, and simplified bin histograms for the supervisor, and exposes to the annotator summary indicators such as completed exercises, mean score, and submission count.
+For dashboards, the system aggregates, per exercise, completion rate, mean percentage score, and simplified bin histograms for the supervisor, and exposes to the annotator summary indicators such as completed exercises, mean score, and submission count; the supervisor view is illustrated in Figure~\ref{fig:dashboard}.
 
 \subsubsection{Dataset generation pipeline}
 
@@ -226,7 +233,14 @@ The user test involved 18 authenticated participants ($N=18$), members of a comp
 
 \subsection{Teacher dashboard and exercise performance indicators}
 
-For the analyzed slice, the teacher dashboard showed three registered exercises, eighteen students with recorded activity, and fifty-four submissions counted in the aggregator. The overall mean supervised score was $76.4\,\%$, with an exercise completion rate of $95.5\,\%$. These summary indicators, displayed as \textit{big numbers} in the interface, summarize cohort effort and concentration at high scores, albeit with dispersion across exercises and students.
+For the analyzed slice, the teacher dashboard (Figure~\ref{fig:dashboard}) showed three registered exercises, eighteen students with recorded activity, and fifty-four submissions counted in the aggregator. The overall mean supervised score was $76.4\,\%$, with an exercise completion rate of $95.5\,\%$. These summary indicators, displayed as \textit{big numbers} in the interface, summarize cohort effort and concentration at high scores, albeit with dispersion across exercises and students.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{system_dashboard_screenshot.png}
+    \caption{Supervisor exercise dashboard for the pilot cohort: aggregate metrics, grade distribution, automated pedagogical alerts, response--reference confusion matrix, and weekly progress indicators.}
+    \label{fig:dashboard}
+\end{figure}
 
 \begin{table}[t]
   \centering
@@ -245,7 +259,7 @@ For the analyzed slice, the teacher dashboard showed three registered exercises,
   \end{tabular}
 \end{table}
 
-Beyond the totals in Table~\ref{tab:big-numbers}, the interface emitted descriptive alerts, one of the educator dashboard features, including: high dispersion among individual scores, suggesting possible need for follow-up; recurrent confusion between the \emph{healthy} and \emph{pneumonia} classes, cited in about $5\,\%$ of cases analyzed by the dashboard; and, in contrast, a large fraction of submissions above $90\,\%$, about $69\,\%$ of the total in Table~\ref{tab:notas-faixas}, compatible with a simple taxonomic domain or a rapid training effect in the pilot classification, which gives the teacher a favorable view of student progress on that classification task.
+Beyond the totals in Table~\ref{tab:big-numbers} and the interface layout in Figure~\ref{fig:dashboard}, the dashboard emitted descriptive alerts, one of the educator dashboard features, including: high dispersion among individual scores, suggesting possible need for follow-up; recurrent confusion between the \emph{healthy} and \emph{pneumonia} classes, cited in about $5\,\%$ of cases analyzed by the dashboard; and, in contrast, a large fraction of submissions above $90\,\%$, about $69\,\%$ of the total in Table~\ref{tab:notas-faixas}, compatible with a simple taxonomic domain or a rapid training effect in the pilot classification, which gives the teacher a favorable view of student progress on that classification task.
 
 \begin{table}[H]
   \centering
@@ -312,7 +326,7 @@ This paper presented the Data Labelling App (DLA), whose contribution is an inte
 The results apply to a specific slice and require replication with more users, classes, and institutions. Evolving the current interface includes large-scale tests and usability and learning studies to better assess pedagogical viability; the system is not presented as a finished solution. Among still missing or partial features: importing datasets directly from repositories such as Kaggle; automatic checks for overlap or inconsistency between markings in detection and segmentation; and, in free practice, automatic verification against other students' responses or aggregated references, for example consensus or geometric distances between labelings, as well as possible support for self-labeling with game-theoretic modeling to seek agreement on more frequent labels or delineations across annotators. Moreover, publication and use of the platform follow free and open-source principles, keeping shared evolution of the platform. These future developments would consolidate the DLA as data life-cycle support infrastructure, integrating training, evaluation, and pedagogical curation in a unified ecosystem.
 
 \subsubsection{\ackname}
-We thank the anonymous reviewers for their valuable feedback. This research was also partially supported by Conselho Nacional de Desenvolvimento Científico e Tecnológico - CNPq (grants 313845/2023-9, 443184/2023-2, 445238/2024-0, and 404800/2025-4).
+We thank the anonymous reviewers for their valuable feedback. This research was also partially supported by Conselho Nacional de Desenvolvimento Científico e Tecnológico - CNPq (grants 313845/2023-9, 443184/2023-2, 445238/2024-0, and 404800/2025-4) and Fundação de Amparo à Pesquisa do Estado do Rio Grande do Sul - FAPERGS.
 
 \subsubsection{\discintname}
 The authors declare no relevant conflicts of interest regarding the content of this paper.
