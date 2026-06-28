@@ -146,11 +146,9 @@ If you use this software in academic work, please cite the companion BRACIS pape
 ```bibtex
 @inproceedings{darosa2026dla,
   author    = {da Rosa, Pedro and Reich, Augusto and Zeiser, Felipe and Ramos, Gabriel de O.},
-  title     = {Image Annotation Tool for Dataset Generation and Export with Specialist Training},
+  title     = {Educational Annotation Systems for Computer Vision: Automatic Evaluation and Dataset Generation for Medical Applications},
   booktitle = {Brazilian Conference on Intelligent Systems (BRACIS)},
   year      = {2026},
-  organization = {IEEE},
-  note      = {Update venue pages and DOI when available}
 }
 ```
 
