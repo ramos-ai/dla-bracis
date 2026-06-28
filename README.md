@@ -4,7 +4,7 @@
 
 Reference implementation of the **Data Labelling App**: a pedagogical platform for image **classification**, **object detection**, and **segmentation** that integrates data literacy, supervisor-validated annotation practice, and asynchronous export to COCO and/or YOLO.
 
-Companion manuscript: *Image Annotation Tool for Dataset Generation and Export with Specialist Training* ([`docs/article.tex`](docs/article.tex), BRACIS 2026).
+Companion manuscript: *Educational Annotation Systems for Computer Vision: Automatic Evaluation and Dataset Generation for Medical Applications* ([`docs/article.tex`](docs/article.tex), BRACIS 2026).
 
 ---
 
