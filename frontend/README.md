@@ -2,7 +2,7 @@
 
 Reference **web client** for the [Data Labelling App (DLA)](https://github.com/ramos-ai/dla-bracis): a React single-page application for image **classification**, **object detection**, and **segmentation**, supervisor dashboards, and export configuration.
 
-Companion manuscript: *Image Annotation Tool for Dataset Generation and Export with Specialist Training* (BRACIS 2026). Backend API and evaluation logic live in the monorepo root; see the [main README](../README.md).
+Companion manuscript: *Educational Annotation Systems for Computer Vision: Automatic Evaluation and Dataset Generation for Medical Applications* (BRACIS 2026). Backend API and evaluation logic live in the monorepo root; see the [main README](../README.md).
 
 ---
 
@@ -135,11 +135,9 @@ If you use this software in academic work, please cite the companion BRACIS pape
 ```bibtex
 @inproceedings{darosa2026dla,
   author    = {da Rosa, Pedro and Reich, Augusto and Zeiser, Felipe and Ramos, Gabriel de O.},
-  title     = {Image Annotation Tool for Dataset Generation and Export with Specialist Training},
+  title     = {Educational Annotation Systems for Computer Vision: Automatic Evaluation and Dataset Generation for Medical Applications},
   booktitle = {Brazilian Conference on Intelligent Systems (BRACIS)},
   year      = {2026},
-  organization = {IEEE},
-  note      = {Update venue pages and DOI when available}
 }
 ```
 
