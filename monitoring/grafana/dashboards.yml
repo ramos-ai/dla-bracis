@@ -1,0 +1,13 @@
+# Provider de dashboards: carrega todos os JSON da pasta indicada
+# O arquivo deve chamar-se dashboards.yml para o Grafana o reconhecer
+apiVersion: 1
+providers:
+  - name: "Data Labelling App"
+    orgId: 1
+    folder: "DLA"
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards/json

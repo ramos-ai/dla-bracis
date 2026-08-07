@@ -1,0 +1,38 @@
+@use '../../styles/base/variables' as *;
+
+.inline-loader {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+
+  &__spinner {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border: 2px solid $gray-200;
+    border-top-color: $primary;
+    border-radius: 50%;
+    animation: inline-loader-spin 0.7s linear infinite;
+    flex-shrink: 0;
+  }
+
+  &__message {
+    font-size: 0.9rem;
+    color: $gray-600;
+  }
+}
+
+@keyframes inline-loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inline-loader__spinner {
+    animation: none;
+    border-top-color: $primary;
+    opacity: 0.8;
+  }
+}

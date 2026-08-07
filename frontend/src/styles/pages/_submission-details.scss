@@ -1,0 +1,139 @@
+@use '../base/variables' as *;
+
+.submission-details {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2xl;
+  width: 100%;
+  max-width: 100%;
+
+  &__score {
+    padding: $spacing-xl;
+    background: $info-light;
+    border: 2px solid $info;
+    border-radius: $radius-lg;
+    text-align: center;
+
+    h3 {
+      margin: 0 0 $spacing-sm 0;
+      color: $unisinos-primary;
+      font-size: $font-size-2xl;
+      font-weight: $font-weight-bold;
+    }
+  }
+
+  &__section {
+    h4 {
+      margin: 0 0 $spacing-lg 0;
+      color: $unisinos-primary;
+      font-size: $font-size-xl;
+      font-weight: $font-weight-semibold;
+      padding-bottom: $spacing-sm;
+      border-bottom: 2px solid $gray-200;
+    }
+  }
+
+  &__answers {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(550px, 1fr));
+    gap: $spacing-xl;
+    padding: $spacing-md;
+    align-items: start;
+    // Removed max-height and overflow-y to prevent nested scrolling
+    // Only the modal should have scroll
+  }
+
+  &__answer {
+    padding: $spacing-xl;
+    background: $white;
+    border: 2px solid $gray-200;
+    border-radius: $radius-lg;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+    transition: all $transition-base;
+    width: 100%;
+    box-sizing: border-box;
+
+    &:hover {
+      box-shadow: $shadow-md;
+    }
+
+    strong {
+      display: block;
+      margin-bottom: $spacing-md;
+      color: $unisinos-primary;
+      font-size: $font-size-lg;
+      font-weight: $font-weight-semibold;
+    }
+
+    > div {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-md;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .media-viewer {
+      width: 100%;
+      max-width: 100%;
+      margin: $spacing-md 0;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img,
+      &__image {
+        max-width: 100%;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        display: block;
+      }
+    }
+  }
+
+  &__labels {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+    margin-top: $spacing-md;
+  }
+
+  &__label {
+    padding: $spacing-xs $spacing-md;
+    background: $unisinos-primary;
+    color: $white;
+    border-radius: $radius-full;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    display: inline-block;
+    margin-right: $spacing-xs;
+    margin-bottom: $spacing-xs;
+    
+    &--correct {
+      background: $success;
+    }
+  }
+
+  &__answer {
+    &--correct {
+      border-color: $success;
+      background: $success-light;
+    }
+    
+    &--wrong {
+      border-color: $error;
+      background: $error-light;
+    }
+  }
+
+  &__no-labels {
+    color: $gray-500;
+    font-style: italic;
+    font-size: $font-size-sm;
+  }
+}
+

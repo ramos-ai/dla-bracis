@@ -1,0 +1,71 @@
+@use './variables' as *;
+
+/*
+ * Only box-sizing here. Do NOT zero margin/padding on `*` —
+ * this file is unlayered SCSS and would override all Tailwind
+ * spacing utilities (@layer utilities), collapsing Studio layouts.
+ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  font-family: $font-family-primary;
+  font-size: $font-size-base;
+  font-weight: $font-weight-normal;
+  line-height: $line-height-normal;
+  color: $gray-800;
+  background-color: $gray-50;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-heading;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  /* Do not set color/size/margin here — conflicts with Tailwind Studio utilities (@layer loses to unlayered SCSS). */
+}
+
+p {
+  line-height: $line-height-relaxed;
+}
+
+a {
+  text-decoration: none;
+  transition: color $transition-base;
+  /* Do not set a default color — breaks dark sidebar nav (unlayered SCSS beats Tailwind). */
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}

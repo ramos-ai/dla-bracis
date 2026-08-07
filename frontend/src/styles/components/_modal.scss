@@ -1,0 +1,104 @@
+@use '../base/variables' as *;
+
+.modal {
+  background: $white;
+  border-radius: $radius-2xl;
+  padding: $spacing-2xl;
+  width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  flex-direction: column;
+  box-shadow: $shadow-2xl;
+  border: 1px solid rgba(11, 60, 93, 0.08);
+  animation: modal-scale-in $transition-base ease-out;
+
+  &--sm {
+    width: 32%;
+  }
+  &--md {
+    width: 46%;
+  }
+  &--lg {
+    width: 64%;
+  }
+  &--xl {
+    width: 95%;
+    max-width: 1400px;
+  }
+
+  &__backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(11, 60, 93, 0.2);
+    z-index: $z-modal-backdrop;
+    backdrop-filter: blur(4px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    animation: modal-fade-in $transition-base ease;
+  }
+
+  &__body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+  }
+
+  &__title-close-line {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-lg;
+    padding-bottom: $spacing-md;
+    border-bottom: 1px solid $gray-200;
+  }
+
+  &__title {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-semibold;
+    color: $primary;
+    margin: 0;
+  }
+
+  &__close {
+    cursor: pointer;
+    font-size: $font-size-2xl;
+    color: $gray-500;
+    transition: color $transition-base, background-color $transition-base;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: $radius-md;
+
+    &:hover {
+      color: $clinical-alert;
+      background: $error-light;
+    }
+  }
+}
+
+@keyframes modal-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

@@ -1,0 +1,75 @@
+@use '../base/variables' as *;
+
+%actionItems {
+  font-weight: $font-weight-semibold;
+  border-radius: $radius-md;
+  padding: $spacing-sm;
+  transition: background-color $transition-base, color $transition-base;
+
+  &:hover {
+    background-color: $primary;
+    color: $white;
+  }
+}
+
+.thumbnail {
+  display: flex;
+  border: 1px solid $gray-200;
+  border-radius: $radius-xl;
+  box-shadow: $shadow-sm;
+  cursor: pointer;
+  transition: box-shadow $transition-base, border-color $transition-base;
+
+  &:hover {
+    box-shadow: $shadow-md;
+    border-color: $primary-light;
+  }
+
+  &__box_image {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+
+  &__image {
+    display: flex;
+    max-width: 12em;
+    min-width: 8em;
+    aspect-ratio: 2;
+    object-fit: contain;
+  }
+
+  &__backgroud_hover {
+    display: flex;
+    flex-direction: column;
+    padding: $spacing-sm;
+  }
+
+  &__actions {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity $transition-base;
+    gap: $spacing-sm;
+  }
+
+  &:hover &__actions {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  &__label_media {
+    @extend %actionItems;
+  }
+
+  &__edit_media {
+    @extend %actionItems;
+  }
+
+  &__delete_media {
+    @extend %actionItems;
+  }
+
+  &__see_media {
+    @extend %actionItems;
+  }
+}

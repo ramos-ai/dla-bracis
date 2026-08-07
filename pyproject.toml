@@ -1,0 +1,51 @@
+[project]
+name = "data-labelling-app-backend"
+version = "0.1.0"
+requires-python = ">=3.11"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+src = ["src", "app.py", "scripts"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W"]
+ignore = [
+    "E501",
+    "E402",
+    "N999",  # invalid module name (ruff reports project root)
+    "N818",  # exception naming (DomainException kept for API)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"app.py" = ["E402"]
+"src/tests/conftest.py" = ["E402"]
+"src/tests/test_infrastructure_health.py" = ["F401"]  # boto3 import for availability check
+
+[tool.black]
+line-length = 88
+target-version = ["py312"]
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+)/
+'''
+
+[tool.mypy]
+python_version = "3.12"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+
+[tool.bandit]
+exclude_dirs = ["tests", "src/tests"]
+skips = ["B101", "B104"]  # B101: assert_used (ok in tests); B104: hardcoded 0.0.0.0 (intentional for Docker) 

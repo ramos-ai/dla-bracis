@@ -1,0 +1,77 @@
+/* Settings page — Studio density; avoid legacy card chrome fighting Tailwind. */
+.settings {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.settings__member-list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.settings__member {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.875rem 0;
+  border-bottom: 1px solid var(--border, #e2e8ee);
+}
+
+.settings__member:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.settings__member:first-child {
+  padding-top: 0;
+}
+
+.settings__member-name {
+  margin: 0;
+  font-family: "Sora", ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--foreground, #2e2e2e);
+  letter-spacing: -0.015em;
+}
+
+.settings__member-email {
+  margin: 0.125rem 0 0;
+  font-size: 0.75rem;
+  color: var(--muted-foreground, #6b7280);
+}
+
+.settings__confusion-matrix {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.75rem;
+}
+
+.settings__confusion-matrix th,
+.settings__confusion-matrix td {
+  border: 1px solid var(--border, #e2e8ee);
+  padding: 0.4rem 0.55rem;
+  text-align: center;
+  white-space: nowrap;
+  max-width: 7rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.settings__confusion-matrix thead th,
+.settings__confusion-matrix tbody th {
+  background: var(--muted, #f1f5f9);
+  font-weight: 600;
+  color: var(--foreground, #2e2e2e);
+}
+
+.settings__confusion-matrix td.is-diagonal {
+  background: color-mix(in srgb, var(--primary, #1d4ed8) 12%, transparent);
+  font-weight: 600;
+}

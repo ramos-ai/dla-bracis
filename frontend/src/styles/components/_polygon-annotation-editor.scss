@@ -1,0 +1,12 @@
+@use '../base/variables' as *;
+
+/* Legacy toolbar/footer styles removed — chrome lives in AnnotationWorkspace.
+   Keep only helpers that editors may still reference for overlays. */
+.polygon-annotation-editor {
+  /* Do not set display/flex here — AnnotationWorkspace root uses CSS grid. */
+  min-height: 0;
+  height: 100%;
+  padding: 0;
+  background: transparent;
+  position: relative;
+}

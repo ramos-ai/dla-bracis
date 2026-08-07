@@ -1,0 +1,29 @@
+@use '../base/variables' as *;
+
+.progress-bar__container {
+  width: 100%;
+  margin: $spacing-sm 0;
+  gap: $spacing-sm;
+}
+
+.progress-bar__track {
+  background: $gray-200;
+  border-radius: $radius-md;
+  height: 10px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.progress-bar__fill {
+  background: $secondary;
+  height: 100%;
+  transition: width $transition-base;
+}
+
+.progress-bar__label {
+  text-align: right;
+  font-size: $font-size-xs;
+  margin-top: $spacing-xs;
+  color: $gray-600;
+  width: 28px;
+}

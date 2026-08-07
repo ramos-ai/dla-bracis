@@ -1,0 +1,38 @@
+@use '../base/variables' as *;
+
+.media-viewer {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+  width: 100%;
+  max-width: 100%;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+    width: 100%;
+  }
+
+  &__box_image {
+    display: flex;
+    gap: $spacing-lg;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  &__image {
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    padding: $spacing-md;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-sm;
+    background: $white;
+    border: 1px solid rgba(11, 60, 93, 0.08);
+  }
+}

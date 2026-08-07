@@ -1,0 +1,1 @@
+"""Student application use cases."""

@@ -1,0 +1,47 @@
+@use '../base/variables' as *;
+
+// Modal padrão para alert() e confirm() — substitui window.alert / window.confirm
+.alert-confirm-modal__backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 60, 93, 0.2);
+  z-index: $z-modal-backdrop;
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl;
+  animation: modal-fade-in $transition-base ease;
+}
+
+.alert-confirm-modal {
+  background: $white;
+  border-radius: $radius-2xl;
+  padding: $spacing-2xl;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: $shadow-2xl;
+  border: 1px solid rgba(11, 60, 93, 0.08);
+  animation: modal-scale-in $transition-base ease-out;
+}
+
+.alert-confirm-modal__message {
+  font-size: $font-size-base;
+  color: $gray-800;
+  line-height: $line-height-relaxed;
+  margin: 0 0 $spacing-xl 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.alert-confirm-modal__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-md;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.alert-confirm-modal__btn {
+  min-width: 88px;
+}

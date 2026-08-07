@@ -1,0 +1,100 @@
+@use '../base/variables' as *;
+
+.input-tagger {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+
+  &__label {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: $gray-500;
+    margin-bottom: 0;
+  }
+
+  &__required {
+    color: $error;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  &__container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.375rem;
+    min-height: 2.375rem; // ~ same as input/select (0.5 + 0.875 line + 0.5)
+    padding: 0.375rem 0.75rem;
+    border: 1px solid $gray-300;
+    border-radius: $radius-md;
+    background-color: $white;
+    box-sizing: border-box;
+    transition: border-color 150ms ease;
+    box-shadow: none;
+
+    &:hover:not(:focus-within) {
+      border-color: $gray-400;
+    }
+
+    &:focus-within {
+      border-color: $secondary;
+      outline: none;
+      box-shadow: none;
+    }
+  }
+
+  &__chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    max-width: 100%;
+    padding: 0.125rem 0.375rem 0.125rem 0.5rem;
+    border-radius: $radius-md;
+    background-color: $primary;
+    color: $white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  &__remove {
+    display: inline-grid;
+    place-items: center;
+    width: 1rem;
+    height: 1rem;
+    padding: 0;
+    border: none;
+    border-radius: 0.25rem;
+    background: transparent;
+    color: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0.85;
+
+    &:hover {
+      opacity: 1;
+      background: rgba(255, 255, 255, 0.15);
+    }
+  }
+
+  &__input {
+    flex: 1 1 7rem;
+    min-width: 7rem;
+    border: none;
+    outline: none;
+    padding: 0.125rem 0;
+    background: transparent;
+    font-family: $font-family-primary;
+    font-size: 0.875rem;
+    color: $gray-800;
+
+    &::placeholder {
+      color: $gray-400;
+    }
+  }
+}

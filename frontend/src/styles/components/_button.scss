@@ -1,0 +1,81 @@
+@use '../base/variables' as *;
+
+.btn {
+  padding: 0.5rem 0.875rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: $radius-md;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease, opacity 150ms ease;
+  border: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  min-height: 2rem;
+  letter-spacing: 0.01em;
+  font-family: $font-family-primary;
+  box-shadow: none;
+
+  &--primary {
+    background: $primary;
+    color: $white;
+    border-color: $primary;
+
+    &:hover:not(:disabled) {
+      background: $primary-light;
+      border-color: $primary-light;
+    }
+  }
+
+  &--secondary {
+    background: $white;
+    color: $neutral-technical;
+    border-color: $gray-300;
+
+    &:hover:not(:disabled) {
+      border-color: $secondary;
+      color: $primary;
+    }
+  }
+
+  &--danger {
+    background: $clinical-alert;
+    color: $white;
+    border-color: $clinical-alert;
+
+    &:hover:not(:disabled) {
+      background: $unisinos-secondary-dark;
+      border-color: $unisinos-secondary-dark;
+    }
+  }
+
+  &--success {
+    background: $success;
+    color: $white;
+    border-color: $success;
+
+    &:hover:not(:disabled) {
+      opacity: 0.9;
+    }
+  }
+
+  &:disabled {
+    background: $gray-200;
+    color: $gray-500;
+    border-color: $gray-200;
+    cursor: not-allowed;
+  }
+
+  &--sm {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.6875rem;
+    min-height: 1.75rem;
+  }
+
+  &--xs {
+    padding: 0.125rem 0.5rem;
+    font-size: 0.6875rem;
+    min-height: 1.5rem;
+  }
+}

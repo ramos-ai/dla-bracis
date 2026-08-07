@@ -1,0 +1,27 @@
+venv/
+__pycache__
+*.pyc
+node_modules/
+.pytest_cache
+frontend/node_modules/
+frontend/dist/
+.env
+.cursor/
+docs/article_back.tex
+docs/generate_system_arch_macro.py
+docs/system_arch_macro.pdf
+!docs/system_arch.png
+!docs/system_arch_macro.png
+!docs/system_dashboard_screenshot.png
+!docs/segmentation_tool.png
+.ruff_cache/
+.pytest_cache/
+.agents/
+__pycache__/
+skills-lock.json
+.agents/
+/config/
+__pycache__/
+docker-compose.prd.yml
+readmes/
+Data Labelling Studio/

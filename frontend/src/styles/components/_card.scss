@@ -1,0 +1,237 @@
+@use '../base/variables' as *;
+
+.card {
+  background: $white;
+  border-radius: $radius-lg;
+  box-shadow: none;
+  padding: 1.25rem;
+  transition: border-color 150ms ease;
+  border: 1px solid $gray-200;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $secondary;
+  }
+
+  &__title {
+    font-family: $font-family-heading;
+    font-size: 1rem;
+    font-weight: $font-weight-semibold;
+    color: $neutral-technical;
+    margin: 0;
+    line-height: 1.35;
+  }
+
+  &__description {
+    font-size: 0.75rem;
+    color: $gray-600;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  &__footer {
+    margin-top: auto;
+    padding-top: 0.75rem;
+    border-top: 1px solid $gray-200;
+    font-size: 0.6875rem;
+    color: $gray-500;
+  }
+}
+
+// Studio default surface card (replaces colored purple/amber cards for lists)
+.card--default,
+.card--purple,
+.card--amber,
+.card--green,
+.card--blue,
+.card--orange,
+.card--salmon,
+.card--platypus,
+.card--exercise,
+.card--exercise-secondary,
+.card--exercise-student {
+  background: $white;
+  color: $neutral-technical;
+  border: 1px solid $gray-200;
+  border-radius: $radius-lg;
+  box-shadow: none;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  cursor: pointer;
+  position: relative;
+  overflow: visible;
+  transition: border-color 150ms ease;
+
+  &::before,
+  &::after {
+    display: none;
+  }
+
+  &:hover {
+    border-color: $secondary;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .card__title {
+    font-family: $font-family-heading;
+    font-size: 1rem;
+    font-weight: 600;
+    color: $neutral-technical;
+    margin: 0;
+  }
+
+  .card__description {
+    font-size: 0.75rem;
+    color: $gray-600;
+    line-height: 1.5;
+  }
+
+  .card__footer {
+    margin-top: auto;
+    padding-top: 0.75rem;
+    border-top: 1px solid $gray-200;
+    font-size: 0.6875rem;
+    color: $gray-500;
+  }
+}
+
+.card--disabled {
+  background: $gray-50;
+  color: $gray-500;
+  padding: 1.25rem;
+  border-radius: $radius-lg;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  opacity: 0.75;
+  cursor: not-allowed;
+  border: 1px solid $gray-200;
+
+  &:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: $gray-200;
+  }
+
+  .card__title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: $gray-600;
+    margin: 0;
+  }
+
+  .card__description {
+    font-size: 0.75rem;
+    color: $gray-500;
+  }
+
+  .card__footer {
+    margin-top: auto;
+    padding-top: 0.75rem;
+    border-top: 1px solid $gray-200;
+    font-size: 0.6875rem;
+    color: $gray-500;
+  }
+}
+
+.card--submission {
+  background: $white;
+  padding: 1rem;
+  border-radius: $radius-lg;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: border-color 150ms ease;
+  border: 1px solid $gray-200;
+  border-left: 3px solid $gray-400;
+  position: relative;
+
+  &:hover {
+    border-color: $secondary;
+    box-shadow: none;
+    transform: none;
+  }
+
+  &--completed {
+    border-left-color: $success;
+    .card--submission__status-badge {
+      background: $success-light;
+      color: $success;
+    }
+  }
+
+  &--in-progress {
+    border-left-color: $warning;
+    .card--submission__status-badge {
+      background: $warning-light;
+      color: $warning;
+    }
+  }
+
+  &--not-started {
+    border-left-color: $gray-400;
+    .card--submission__status-badge {
+      background: $gray-100;
+      color: $gray-600;
+    }
+  }
+
+  .card__title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: $gray-800;
+    margin: 0;
+  }
+
+  .card__description {
+    font-size: 0.75rem;
+    color: $gray-600;
+    margin: 0;
+  }
+
+  .card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid $gray-100;
+  }
+
+  &__status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.5rem;
+    border-radius: $radius-md;
+    font-size: 0.6875rem;
+    font-weight: 500;
+  }
+
+  &__score {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+
+    &--high { color: $success; }
+    &--medium { color: $warning; }
+    &--low { color: $error; }
+  }
+
+  &__meta {
+    font-size: 0.6875rem;
+    color: $gray-500;
+  }
+}

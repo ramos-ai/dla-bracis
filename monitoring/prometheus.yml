@@ -1,0 +1,16 @@
+# Prometheus config para Data Labelling App (observabilidade)
+# Utilizado quando se sobe com: docker-compose --profile observability up -d
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: "data-labelling-app"
+    static_configs:
+      - targets: ["app:5000"]
+    metrics_path: /metrics
+
+  - job_name: "mongodb"
+    static_configs:
+      - targets: ["mongodb-exporter:9216"]

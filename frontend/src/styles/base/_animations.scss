@@ -1,0 +1,137 @@
+@use './variables' as *;
+
+// --- Tokens (align with utils/animations.ts) ---
+$anim-duration-fast: 150ms;
+$anim-duration-normal: 200ms;
+$anim-duration-medium: 300ms;
+$anim-stagger: 50ms;
+$anim-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+$anim-ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+
+// --- Keyframes (all short and subtle) ---
+@keyframes anim-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes anim-fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes anim-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes anim-skeleton-pulse {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 1; }
+}
+
+// --- Reduced motion: disable animations ---
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+// --- Troca de turma: animação suave ao mudar turma selecionada ---
+.app-main__content-inner--turma {
+  animation: anim-fade-in 0.35s $anim-ease-out forwards;
+}
+
+// --- Transição fade entre páginas (rotas) ---
+.page-fade {
+  opacity: 0;
+  animation: anim-fade-in 0.25s $anim-ease-out forwards;
+  min-height: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-main__content-inner--turma,
+  .page-fade {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+// --- Card / list stagger (add class .anim-stagger-children to container) ---
+.anim-stagger-children > * {
+  opacity: 0;
+  animation: anim-fade-in $anim-duration-normal $anim-ease forwards;
+}
+
+.anim-stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+.anim-stagger-children > *:nth-child(2) { animation-delay: $anim-stagger; }
+.anim-stagger-children > *:nth-child(3) { animation-delay: $anim-stagger * 2; }
+.anim-stagger-children > *:nth-child(4) { animation-delay: $anim-stagger * 3; }
+.anim-stagger-children > *:nth-child(5) { animation-delay: $anim-stagger * 4; }
+.anim-stagger-children > *:nth-child(6) { animation-delay: $anim-stagger * 5; }
+.anim-stagger-children > *:nth-child(7) { animation-delay: $anim-stagger * 6; }
+.anim-stagger-children > *:nth-child(8) { animation-delay: $anim-stagger * 7; }
+.anim-stagger-children > *:nth-child(9) { animation-delay: $anim-stagger * 8; }
+.anim-stagger-children > *:nth-child(10) { animation-delay: $anim-stagger * 9; }
+.anim-stagger-children > *:nth-child(n+11) { animation-delay: $anim-stagger * 10; }
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-stagger-children > * {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+// --- Card hover (elevação + scale muito discreto) ---
+.anim-card-hover {
+  transition: transform $anim-duration-fast $anim-ease, box-shadow $anim-duration-normal $anim-ease;
+  &:hover {
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: $shadow-md;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-card-hover:hover {
+    transform: none;
+  }
+}
+
+// --- Button press ---
+.anim-btn-press:active {
+  transform: scale(0.98);
+}
+
+// --- Skeleton loading ---
+.anim-skeleton {
+  background: $gray-200;
+  border-radius: $radius-md;
+  animation: anim-skeleton-pulse 1.5s $anim-ease infinite;
+}
+
+// Texto / bloco de loading com pulsação sutil
+.anim-loading-pulse {
+  animation: anim-skeleton-pulse 1.5s $anim-ease infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-skeleton {
+    animation: none;
+    opacity: 0.9;
+  }
+}

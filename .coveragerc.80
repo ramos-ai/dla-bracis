@@ -1,0 +1,16 @@
+[run]
+source = src
+omit =
+    src/tests/*
+    src/main.py
+    */__init__.py
+    src/presentation/http/schemas/coco_dto.py
+    src/presentation/http/schemas/media_dto.py
+    src/presentation/http/schemas/report_dto.py
+    src/presentation/http/schemas/segmentation_dto.py
+
+[report]
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    raise NotImplementedError

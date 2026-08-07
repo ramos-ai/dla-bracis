@@ -1,0 +1,24 @@
+@use '../base/variables' as *;
+
+.notifications {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2xl;
+  max-width: $container-max-width;
+  margin: 0 auto;
+
+  &__header {
+    display: flex;
+    flex-direction: row;
+    gap: $spacing-xl;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: $spacing-lg;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+  }
+}
